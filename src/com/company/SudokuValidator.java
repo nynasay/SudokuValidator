@@ -1,4 +1,5 @@
 package com.company;
+
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
@@ -6,7 +7,8 @@ public class SudokuValidator {
 
     public static void main(String[] args) {
 
-        int correctSudoku[][] = {{6, 2, 4, 5, 3, 9, 1, 8, 7},
+        int[][] correctSudoku = new int[][]{
+                {6, 2, 4, 5, 3, 9, 1, 8, 7},
                 {5, 1, 9, 7, 2, 8, 6, 3, 4},
                 {8, 3, 7, 6, 1, 4, 2, 9, 5},
                 {1, 4, 3, 8, 6, 5, 7, 2, 9},
@@ -17,14 +19,37 @@ public class SudokuValidator {
                 {2, 8, 5, 4, 7, 3, 9, 1, 6}};
 
         //this method is to just print the sudoko
-        for (int[] row : correctSudoku) {
-            printRow(row);
+//        for (int[] row : correctSudoku) {
+//            printRow(row);
+//        }
+
+        if (!ValidateColumn(correctSudoku)) {
+            System.out.println("Columns are not valid");
+        } else {
+            System.out.println("Columns are valid");
+        }
+
+        if (!ValidateRow(correctSudoku)) {
+            System.out.println("Rows are not valid");
+        } else {
+            System.out.println("Rows are valid");
         }
 
 
-        ValidateColumn columns = new ValidateColumn(correctSudoku);
-        ValidateRow rows = new ValidateRow(correctSudoku);
-        ValidateGrid three_by_three = new ValidateGrid(correctSudoku);
+        for (int col = 0; col < 9; col =col+3) {
+            for(int row =0; row < 9; row = row+3) {
+                if (!ValidateGrid(correctSudoku, col, row)) {
+                    System.out.println("Box is not valid");
+                } else {
+                    System.out.println("Box is valid");
+                }
+            }
+
+        }
+
+        //ValidateColumn columns = new ValidateColumn(correctSudoku);
+        //ValidateRow rows = new ValidateRow(correctSudoku);
+        //ValidateGrid three_by_three = new ValidateGrid(correctSudoku);
 
         //long start = System.nanoTime();
         //long end = System.nanoTime();
@@ -44,90 +69,72 @@ public class SudokuValidator {
         System.out.println();
     }
 
-    static class ValidateColumn implements Runnable {
-        public ValidateColumn(int sudoku[][]) {
-            int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-            int[] eval = new int[9];
-            boolean valid = true;
-            //Looping through all of the columns
-            for (int row = 0; row < sudoku.length; row++) {
-                for (int col = 0; col < sudoku[0].length; col++) {
-                    eval[col] = sudoku[row][col];
-                }
-                Arrays.sort(eval);
-                if (!Arrays.equals(values, eval)) {
-                    valid = false;
-                }
+
+    public static boolean ValidateColumn(int[][] sudoku) {
+        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] eval = new int[9];
+        boolean valid = true;
+        //Looping through all of the columns
+        for (int col = 0; col < 9; col++) {
+            eval = new int[9];
+            for (int row = 0; row < 9; row++) {
+                eval[row] = sudoku[row][col];
+
             }
-            Arrays.fill(eval, 0);
+            System.out.println();
             Arrays.sort(eval);
             if (!Arrays.equals(values, eval)) {
                 valid = false;
+                break;
+
             }
         }
-
-        public void run() {
-        }
-
+        return valid;
     }
 
-    static class ValidateRow implements Runnable {
-        public ValidateRow(int sudoku[][]) {
-            int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-            int[] eval = new int[9];
-            boolean valid = true;
-            for (int col = 0; col < sudoku[0].length; col++) {
-                for (int row = 0; row < sudoku.length; row++) {
-                    eval[row] = sudoku[row][col];
-                }
-                Arrays.sort(eval);
-                if (!Arrays.equals(values, eval)) {
-                    valid = false;
-                }
+
+    public static boolean ValidateRow(int[][] sudoku) {
+        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] eval = new int[9];
+        boolean valid = true;
+        //Looping through all of the columns
+        for (int row = 0; row < 9; row++) {
+            eval = new int[9];
+            for (int col = 0; col < 9; col++) {
+                eval[col] = sudoku[row][col];
             }
-            Arrays.fill(eval, 0);
             Arrays.sort(eval);
             if (!Arrays.equals(values, eval)) {
                 valid = false;
+                break;
+
             }
         }
-
-        public void run() {
-        }
-
+        return valid;
     }
 
-    static class ValidateGrid implements Runnable {
-        public ValidateGrid(int sudoku[][]) {
-            int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-            int[] eval = new int[9];
-            boolean valid = true;
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    int k = 0;
-                    eval = new int[9];
-                    for (int row = i * 3; row < (i * 3) + 3; row++) {
-                        for (int column = j * 3; column < (i * 3) + 3; column++) {
-                            eval[k] = sudoku[row][column];
-                            System.out.println("k: " + k);
-                            k++;
 
-                        }
-
-                    }
-                }
-
+    public static boolean ValidateGrid(int[][] sudoku, int row, int column) {
+        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] eval = new int[9];
+        boolean valid = true;
+        int k = 0;
+        for (int i = row; i < (row+3); i++) {
+            for (int j = column; j < (column+3); j++) {
+                eval[k] = sudoku[j][i];
+                k++;
             }
-            Arrays.fill(eval, 0);
-            Arrays.sort(eval);
-            if (!Arrays.equals(values, eval)) {
-                valid = false;
-            }
-        }
 
-        public void run() {
         }
+        Arrays.sort(eval);
+        if (!Arrays.equals(values, eval)) {
+            valid = false;
 
+        }
+        return valid;
     }
 
 }
+
+
+
