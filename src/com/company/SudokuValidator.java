@@ -18,10 +18,6 @@ public class SudokuValidator {
                 {4, 9, 6, 1, 8, 2, 5, 7, 3},
                 {2, 8, 5, 4, 7, 3, 9, 1, 6}};
 
-        //this method is to just print the sudoko
-//        for (int[] row : correctSudoku) {
-//            printRow(row);
-//        }
 
         if (!ValidateColumn(correctSudoku)) {
             System.out.println("Columns are not valid");
@@ -60,15 +56,6 @@ public class SudokuValidator {
 
     }
 
-    //this method is just to print the table
-    public static void printRow(int[] row) {
-        for (int i : row) {
-            System.out.print(i);
-            System.out.print("\t");
-        }
-        System.out.println();
-    }
-
 
     public static boolean ValidateColumn(int[][] sudoku) {
         int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -79,14 +66,12 @@ public class SudokuValidator {
             eval = new int[9];
             for (int row = 0; row < 9; row++) {
                 eval[row] = sudoku[row][col];
-
             }
             System.out.println();
             Arrays.sort(eval);
             if (!Arrays.equals(values, eval)) {
                 valid = false;
                 break;
-
             }
         }
         return valid;
