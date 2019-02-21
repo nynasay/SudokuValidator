@@ -18,122 +18,151 @@ public class SudokuValidator {
                 {4, 9, 6, 1, 8, 2, 5, 7, 3},
                 {2, 8, 5, 4, 7, 3, 9, 1, 6}};
 
-        //this method is to just print the sudoko
-//        for (int[] row : correctSudoku) {
-//            printRow(row);
-//        }
 
-        if (!ValidateColumn(correctSudoku)) {
+        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        //CREATE TASKS
+        Runnable checkCols = new ValidateColumn(correctSudoku, values);
+        Runnable checkRows = new ValidateRow(correctSudoku, values);
+        Runnable checkGrids = new ValidateGrid(correctSudoku, values);
+
+        //CREATE THREADS
+        Thread thread1 = new Thread(checkCols);
+        Thread thread2 = new Thread(checkRows);
+        Thread thread3 = new Thread(checkGrids);
+
+        //START THREADS
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
+}
+
+//THE TASK FOR CHECKING IF THE COLUMNS ARE VALID
+class ValidateColumn implements Runnable {
+    private int[][] sudokuPuzzle; //THE SUDOKU TO VALIDATE THE COLUMNS OF
+    private int[] validNums; //THE POTENTIAL VALUES THAT CAN BE FOUND IN A COLUMN
+    private boolean result; //THE VALUES FOUND IN A COLUMN
+
+    /**
+     * CONSTRUCTING A TASK WITH THE SPECIFIED 2D ARRAY OF THE SUDOKU PUZZLE, POTENTIAL
+     * VALUES THAT CAN BE FOUND IN A COLUMN, AND VALUES FOUND IN A COLUMN
+     */
+    public ValidateColumn(int[][] sudoku, int[] valid) {
+        sudokuPuzzle = sudoku;
+        validNums = valid;
+        result = true;
+    }
+
+    @Override
+    //OVERRIDE THE run() METHOD TO TELL THE SYSTEM WHAT TASK TO PERFORM
+    public void run() {
+        int[] found = new int[9];
+        //Looping through all of the columns
+        for (int col = 0; col < 9; col++) {
+            for (int row = 0; row < 9; row++) {
+                found[row] = sudokuPuzzle[row][col];
+
+            }
+            System.out.println();
+            Arrays.sort(found);
+            if (!Arrays.equals(validNums, found)) {
+                result = false;
+                break;
+            }
+        }
+
+        if (!result) {
             System.out.println("Columns are not valid");
         } else {
             System.out.println("Columns are valid");
         }
+    }
+}
 
-        if (!ValidateRow(correctSudoku)) {
+//THE TASK FOR CHECKING IF THE ROWS ARE VALID
+class ValidateRow implements Runnable {
+    private int[][] sudokuPuzzle; //THE SUDOKU TO VALIDATE THE ROWS OF
+    private int[] validNums; //THE POTENTIAL VALUES THAT CAN BE FOUND IN A ROW
+    private boolean result; //THE VALUES FOUND IN A ROW
+
+    /**
+     * CONSTRUCTING A TASK WITH THE SPECIFIED 2D ARRAY OF THE SUDOKU PUZZLE, POTENTIAL
+     * VALUES THAT CAN BE FOUND IN A ROW, AND VALUES FOUND IN A ROW
+     */
+    public ValidateRow(int[][] sudoku, int[] valid) {
+        sudokuPuzzle = sudoku;
+        validNums = valid;
+        result = true;
+    }
+
+    @Override
+    //OVERRIDE THE run() METHOD TO TELL THE SYSTEM WHAT TASK TO PERFORM
+    public void run() {
+        int[] found = new int[9];
+        //Looping through all of the columns
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                found[col] = sudokuPuzzle[row][col];
+            }
+            Arrays.sort(found);
+            if (!Arrays.equals(validNums, found)) {
+                result = false;
+                break;
+            }
+        }
+
+        if (!result) {
             System.out.println("Rows are not valid");
         } else {
             System.out.println("Rows are valid");
         }
+    }
+}
 
+//THE TASK FOR CHECKING IF THE GRIDS ARE VALID
+class ValidateGrid implements Runnable {
+    private int[][] sudokuPuzzle; //THE SUDOKU TO VALIDATE THE ROWS OF
+    private int[] validNums; //THE POTENTIAL VALUES THAT CAN BE FOUND IN A ROW
+    private boolean result; //THE VALUES FOUND IN A ROW
 
-        for (int col = 0; col < 9; col =col+3) {
-            for(int row =0; row < 9; row = row+3) {
-                if (!ValidateGrid(correctSudoku, col, row)) {
-                    System.out.println("Box is not valid");
-                } else {
-                    System.out.println("Box is valid");
+    /**
+     * CONSTRUCTING A TASK WITH THE SPECIFIED 2D ARRAY OF THE SUDOKU PUZZLE, POTENTIAL
+     * VALUES THAT CAN BE FOUND IN A ROW, AND VALUES FOUND IN A ROW
+     */
+    public ValidateGrid(int[][] sudoku, int[] valid) {
+        sudokuPuzzle = sudoku;
+        validNums = valid;
+        result = true;
+    }
+
+    @Override
+    //OVERRIDE THE run() METHOD TO TELL THE SYSTEM WHAT TASK TO PERFORM
+    public void run() {
+        int[] found = new int[9];
+        for (int col = 0; col < 9; col = col + 3) {
+            for (int row = 0; row < 9; row = row + 3) {
+                int k = 0;
+                for (int i = row; i < (row + 3); i++) {
+                    for (int j = col; j < (col + 3); j++) {
+                        found[k] = sudokuPuzzle[j][i];
+                        k++;
+                    }
+
+                }
+                Arrays.sort(found);
+                if (!Arrays.equals(validNums, found)) {
+                    result = false;
+                    break;
                 }
             }
-
         }
-
-        //ValidateColumn columns = new ValidateColumn(correctSudoku);
-        //ValidateRow rows = new ValidateRow(correctSudoku);
-        //ValidateGrid three_by_three = new ValidateGrid(correctSudoku);
-
-        //long start = System.nanoTime();
-        //long end = System.nanoTime();
-
-        //DecimalFormat format = new DecimalFormat("#.##");
-        //boolean valid = true;
-
-
+        if (!result) {
+            System.out.println("Grids are not valid");
+        } else {
+            System.out.println("Grids are valid");
+        }
     }
-
-    //this method is just to print the table
-    public static void printRow(int[] row) {
-        for (int i : row) {
-            System.out.print(i);
-            System.out.print("\t");
-        }
-        System.out.println();
-    }
-
-
-    public static boolean ValidateColumn(int[][] sudoku) {
-        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        int[] eval = new int[9];
-        boolean valid = true;
-        //Looping through all of the columns
-        for (int col = 0; col < 9; col++) {
-            eval = new int[9];
-            for (int row = 0; row < 9; row++) {
-                eval[row] = sudoku[row][col];
-
-            }
-            System.out.println();
-            Arrays.sort(eval);
-            if (!Arrays.equals(values, eval)) {
-                valid = false;
-                break;
-
-            }
-        }
-        return valid;
-    }
-
-
-    public static boolean ValidateRow(int[][] sudoku) {
-        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        int[] eval = new int[9];
-        boolean valid = true;
-        //Looping through all of the columns
-        for (int row = 0; row < 9; row++) {
-            eval = new int[9];
-            for (int col = 0; col < 9; col++) {
-                eval[col] = sudoku[row][col];
-            }
-            Arrays.sort(eval);
-            if (!Arrays.equals(values, eval)) {
-                valid = false;
-                break;
-
-            }
-        }
-        return valid;
-    }
-
-
-    public static boolean ValidateGrid(int[][] sudoku, int row, int column) {
-        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-        int[] eval = new int[9];
-        boolean valid = true;
-        int k = 0;
-        for (int i = row; i < (row+3); i++) {
-            for (int j = column; j < (column+3); j++) {
-                eval[k] = sudoku[j][i];
-                k++;
-            }
-
-        }
-        Arrays.sort(eval);
-        if (!Arrays.equals(values, eval)) {
-            valid = false;
-
-        }
-        return valid;
-    }
-
 }
 
 
