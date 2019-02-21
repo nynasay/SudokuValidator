@@ -48,7 +48,7 @@ public class SudokuValidator {
         //THE FOLLOWING CODE PRINTS TO THE CONSOLE WHETHER THE ENTIRE SUDOKU PUZZLE IS VALID
         boolean valid = true;
         for(int i = 0; i < threadsResults.length; i++){
-            if(threadsResults[i] == false){
+            if(!threadsResults[i]){
                 System.out.println("Invalid Sudoku Puzzle");
                 valid = false;
             }
@@ -57,6 +57,7 @@ public class SudokuValidator {
         if(valid){
             System.out.println("Valid Sudoku Puzzle");
         }
+        System.out.println("End Time: " + df.format((double)(System.nanoTime() - startTime)/1000000) + "ms");
     }
 }
 
