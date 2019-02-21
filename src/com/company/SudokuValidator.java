@@ -5,6 +5,10 @@ import java.util.Arrays;
 
 public class SudokuValidator {
 
+    public static long startTime = System.nanoTime();
+    public static DecimalFormat df = new DecimalFormat("#.##");
+    public static boolean[] threadsResults = new boolean[3];
+
     public static void main(String[] args) {
 
         int[][] correctSudoku = new int[][]{
@@ -32,9 +36,28 @@ public class SudokuValidator {
         Thread thread3 = new Thread(checkGrids);
 
         //START THREADS
-        thread1.start();
-        thread2.start();
-        thread3.start();
+        try {
+            thread1.start();
+            thread1.join();
+            thread2.start();
+            thread2.join();
+            thread3.start();
+            thread3.join();
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+        boolean valid = true;
+        for(int i = 0; i < threadsResults.length; i++){
+            if(threadsResults[i] == false){
+                System.out.println("Invalid Sudoku Puzzle");
+                valid = false;
+            }
+        }
+
+        if(valid){
+            System.out.println("Valid Sudoku Puzzle");
+        }
     }
 }
 
@@ -62,9 +85,7 @@ class ValidateColumn implements Runnable {
         for (int col = 0; col < 9; col++) {
             for (int row = 0; row < 9; row++) {
                 found[row] = sudokuPuzzle[row][col];
-
             }
-            System.out.println();
             Arrays.sort(found);
             if (!Arrays.equals(validNums, found)) {
                 result = false;
@@ -77,6 +98,8 @@ class ValidateColumn implements Runnable {
         } else {
             System.out.println("Columns are valid");
         }
+        System.out.println("Time: " + SudokuValidator.df.format((double)(System.nanoTime() - SudokuValidator.startTime)/1000000) + "ms");
+        SudokuValidator.threadsResults[0] = result;
     }
 }
 
@@ -117,6 +140,8 @@ class ValidateRow implements Runnable {
         } else {
             System.out.println("Rows are valid");
         }
+        System.out.println("Time: " + SudokuValidator.df.format((double)(System.nanoTime() - SudokuValidator.startTime)/1000000) + "ms");
+        SudokuValidator.threadsResults[1] = result;
     }
 }
 
@@ -162,6 +187,8 @@ class ValidateGrid implements Runnable {
         } else {
             System.out.println("Grids are valid");
         }
+        System.out.println("Time: " + SudokuValidator.df.format((double)(System.nanoTime() - SudokuValidator.startTime)/1000000) + "ms");
+        SudokuValidator.threadsResults[2] = result;
     }
 }
 
