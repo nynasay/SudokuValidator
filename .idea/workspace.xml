@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c4dcc1cb-77cb-465e-bd56-e67a3243e7c4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/SudokuValidator$ValidateColumn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/SudokuValidator$ValidateGrid.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/SudokuValidator$ValidateRow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/SudokuValidator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/SudokuValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/DiningRoomPhilosopher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher$Fork.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher$Fork.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher$Philosopher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher$Philosopher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher$State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher$State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SudokuValidator/com/company/DiningRoomPhilosopher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/DiningRoomPhilosopher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/DiningRoomPhilosopher.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,18 +21,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/company/DiningRoomPhilosopher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1446">
-              <caret line="131" column="51" selection-start-line="131" selection-start-column="47" selection-end-line="131" selection-end-column="52" />
+            <state relative-caret-position="-100">
+              <caret line="111" column="27" selection-start-line="111" selection-start-column="27" selection-end-line="111" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#221#222#0" expanded="true" />
-                <element signature="e#262#263#0" expanded="true" />
-                <element signature="e#304#305#0" expanded="true" />
-                <element signature="e#345#346#0" expanded="true" />
-                <element signature="e#391#392#0" expanded="true" />
-                <element signature="e#429#430#0" expanded="true" />
-                <element signature="e#707#708#0" expanded="true" />
-                <element signature="e#765#766#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,6 +37,10 @@
       <find>philnum</find>
       <find>acquire</find>
       <find>philosopher</find>
+      <find>signal</find>
+      <find>left</find>
+      <find>fork</find>
+      <find>wait</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -66,9 +62,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="480" />
+    <option name="x" value="365" />
     <option name="y" value="23" />
-    <option name="width" value="956" />
+    <option name="width" value="1071" />
     <option name="height" value="829" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -77,6 +73,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -104,14 +102,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555598366978" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555598461256" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -179,17 +175,20 @@
       <workItem from="1554910350814" duration="357000" />
       <workItem from="1554912485355" duration="99000" />
       <workItem from="1555547327571" duration="568000" />
-      <workItem from="1555548053138" duration="11224000" />
+      <workItem from="1555548053138" duration="11356000" />
+      <workItem from="1555611989937" duration="1576000" />
+      <workItem from="1555614724678" duration="1236000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25336000" />
+    <option name="totallyTimeSpent" value="28280000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="480" y="23" width="956" height="829" extended-state="0" />
+    <frame x="365" y="23" width="1071" height="829" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.124726474" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25558794" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
@@ -199,12 +198,12 @@
       <window_info id="Image Layers" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4996573" visible="true" weight="0.26865673" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4996573" visible="true" weight="0.3622795" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.44640434" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.6105834" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.35278153" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5003427" side_tool="true" weight="0.29028437" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Version Control" order="10" />
@@ -225,24 +224,14 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/production/SudokuValidator/com/company/SudokuValidator.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/SudokuValidator/com/company/SudokuValidator.class" />
     <entry file="file://$PROJECT_DIR$/../systemsLab4/src/com/company/DiningPhilosopher .java" />
     <entry file="file://$PROJECT_DIR$/src/com/company/DiningRoomPhilosopher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1446">
-          <caret line="131" column="51" selection-start-line="131" selection-start-column="47" selection-end-line="131" selection-end-column="52" />
+        <state relative-caret-position="-100">
+          <caret line="111" column="27" selection-start-line="111" selection-start-column="27" selection-end-line="111" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#221#222#0" expanded="true" />
-            <element signature="e#262#263#0" expanded="true" />
-            <element signature="e#304#305#0" expanded="true" />
-            <element signature="e#345#346#0" expanded="true" />
-            <element signature="e#391#392#0" expanded="true" />
-            <element signature="e#429#430#0" expanded="true" />
-            <element signature="e#707#708#0" expanded="true" />
-            <element signature="e#765#766#0" expanded="true" />
           </folding>
         </state>
       </provider>

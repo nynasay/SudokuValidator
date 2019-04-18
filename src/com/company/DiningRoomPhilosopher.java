@@ -44,6 +44,7 @@ public class DiningRoomPhilosopher {
             mutex.lock();
             try{
                 setState(philosopherIndex, "hungry");
+                System.out.println("Philosopher " + (philosopherIndex +1) +" is hungry");
                 //The philospher has to wait until the forks become available
                 while (!left.getAvailability() || !right.getAvailability()){
                     conditions[philosopherIndex].await();
@@ -53,7 +54,10 @@ public class DiningRoomPhilosopher {
                 left.setAvailabile(false);
                 right.setAvailabile(false);
                 setState(philosopherIndex, "eating");
+                int leftFork = (((philosopherIndex+1) + 4) % 5);
+                System.out.println("Philosopher " + (philosopherIndex+1) + " takes fork " + (leftFork) + " and " + (philosopherIndex+1));
                 System.out.println("Philosopher " + (philosopherIndex+1) + " is " + currentState[philosopherIndex]);
+
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -66,7 +70,9 @@ public class DiningRoomPhilosopher {
             left.setAvailabile(true);
             right.setAvailabile(true);
             conditions[(philosopherIndex+1) % 5].signal();
-            conditions[(philosopherIndex+4) % 5].signalAll();
+            conditions[(philosopherIndex+4) % 5].signal();
+            int leftFork = (((philosopherIndex+1) + 4) % 5);
+            System.out.println("Philosopher " + (philosopherIndex+1) + " puts fork " + (leftFork) + " and " + (philosopherIndex+1) + " down.");
             System.out.println("Philosopher " + (philosopherIndex+1) + " is " + currentState[philosopherIndex]);
             mutex.unlock();
         }
@@ -84,7 +90,7 @@ public class DiningRoomPhilosopher {
             this.philosopherIndex = philosopherIndex;
         }
         private void thinking(){
-            int sleepTime = (int)(Math.random()*10);
+            int sleepTime = (int)(Math.random()*2000);
             try{
                 Thread.sleep(sleepTime);
                 System.out.println("Philosopher " + (philosopherIndex +1) +" is thinking");
@@ -92,18 +98,8 @@ public class DiningRoomPhilosopher {
                 e.printStackTrace();
             }
         }
-        private void hungry(){
-            int sleepTime = (int)(Math.random()*10);
-            try{
-                Thread.sleep(sleepTime);
-                System.out.println("Philosopher " + (philosopherIndex +1) +" is hungry");
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        }
-
         private void eating(){
-            int sleepTime = (int)(Math.random()*10);
+            int sleepTime = (int)(Math.random()*2000);
             try{
                 Thread.sleep(sleepTime);
                 System.out.println("Philosopher " + (philosopherIndex +1) +" is eating");
@@ -113,6 +109,7 @@ public class DiningRoomPhilosopher {
         }
         public void run(){
             while(true){
+                thinking();
                 state.grabFork(philosopherIndex,left,right);
                 eating();
                 state.putForkDown(philosopherIndex,left,right);
@@ -130,8 +127,10 @@ public class DiningRoomPhilosopher {
         }
         for ( int i = 0; i < 5; i++){
             philosophers[i] = new Philosopher(i, fork[i], fork[(i+4) % 5], state);
-            new Thread(philosophers[i]).start().join();
+            Thread philnum = new Thread(philosophers[i]);
+            philnum.start();
         }
+
     }
 
 
